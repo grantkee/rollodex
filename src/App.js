@@ -1,26 +1,81 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+//import { Recoverable } from 'repl';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class User extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { isVerified: false, users: [], showDetails: false }
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    fetch ('https://randomuser.me/api?results=50')
+    .then(response => response.json())
+    .then(parsedJSON => parsedJSON.results.map(contact => (
+      {
+        id: `${contact.login.uuid}`,
+        username: `${contact.login.username}`,
+        firstname: `${contact.name.first}`,
+        lastname: `${contact.name.last}`,
+        pic: `${contact.picture.thumbnail}`,
+        phone: `${contact.cell}`,
+        city: `${contact.location.city}`,
+        lat: `${contact.location.coordinates.latitude}`,
+        long: `${contact.location.coordinates.longitude}`
+      }
+    )))
+    .then(users => this.setState(
+      {
+        users,
+        isVerified: false
+      }
+    ))
+    .catch(error => console.log("parsing failed", error))
+  }
+
+  isVerified() {
+    console.log('is verified or not here')
+  }
+
+  viewUserDetails(){
+    //let viewDetails = this.state.showDetails
+    console.log('view details toggle button here')
+  }
+
+  render() { 
+    const {isVerified, users, showDetails} = this.state;
+    return ( 
+      <div>
+        <header>
+          <h1>Your Contacts</h1><br></br>
+          Verify Friends for Offline Use
+          </header>
+          <div className="container">
+            {users.map(userInfo => {
+              const {id, username, firstname, lastname, pic, phone, city, lat, long} = userInfo;
+              return (
+                <div key={userInfo.id} title={userInfo.username} className="user-profile">
+                  {!showDetails ? (
+                  <div className="initial-userInfo">
+                    {firstname} {lastname}<br></br>
+                    <img src={pic} alt={username}></img>
+                  </div>
+                  ) : (
+                  <div className="detailed-userInfo">
+                    
+                  </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+      </div>
+     );
+  }
 }
-
-export default App;
+ 
+export default User;
