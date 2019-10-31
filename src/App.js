@@ -5,7 +5,7 @@ import './App.css';
 class User extends Component {
   constructor(props) {
     super(props);
-    this.state = { isVerified: false, users: [], showDetails: false }
+    this.state = { isVerified: false, users: [], showDetails: true }
   }
 
   componentDidMount() {
@@ -44,6 +44,7 @@ class User extends Component {
   viewUserDetails(){
     //let viewDetails = this.state.showDetails
     console.log('view details toggle button here')
+    //this.setState({showDetails: true})
   }
 
   render() { 
@@ -60,13 +61,15 @@ class User extends Component {
               return (
                 <div key={userInfo.id} title={userInfo.username} className="user-profile">
                   {!showDetails ? (
-                  <div className="initial-userInfo">
-                    {firstname} {lastname}<br></br>
-                    <img src={pic} alt={username}></img>
+                  <div className="basic-userInfo">
+                    {firstname} {lastname}
+                    <img src={pic} alt={username} className="user-thumbnail-basic"></img>
+                    <button className="details-button" onClick={this.viewUserDetails}>Details</button>
                   </div>
                   ) : (
                   <div className="detailed-userInfo">
-                    
+                    {firstname} {lastname}
+                    <img src={pic} alt={username} className="user-thumbnail-detailed"></img>
                   </div>
                   )}
                 </div>
