@@ -61,12 +61,11 @@ class User extends Component {
                 <div key={userInfo.id} title={userInfo.username} className="user-profile">
                   {!showDetails ? (
                   <div className="initial-userInfo">
-                    {firstname} {lastname}<br></br>
+                    {firstname} {lastname}<br/>
                     <img src={pic} alt={username}></img>
                   </div>
                   ) : (
                   <div className="detailed-userInfo">
-                    
                   </div>
                   )}
                 </div>
