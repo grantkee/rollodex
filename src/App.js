@@ -37,13 +37,14 @@ class User extends Component {
     .catch(error => console.log("parsing failed", error))
   }
 
-  isVerified() {
+  isVerified = (e) => {
     console.log('is verified or not here')
   }
 
-  viewUserDetails(){
+  viewUserDetails = () => {
     //let viewDetails = this.state.showDetails
     console.log('view details toggle button here')
+    this.setState(prevState => ({showDetails: !prevState.showDetails}))
   }
 
   render() { 
@@ -60,12 +61,20 @@ class User extends Component {
               return (
                 <div key={userInfo.id} title={userInfo.username} className="user-profile">
                   {!showDetails ? (
-                  <div className="initial-userInfo">
-                    {firstname} {lastname}<br/>
-                    <img src={pic} alt={username}></img>
+                  <div className="basic-userInfo">
+                    {firstname} {lastname}
+                    <img src={pic} alt={username} className="user-thumbnail-basic"></img>
+                    <button className="details-button" onClick={this.viewUserDetails}>Details</button>
                   </div>
                   ) : (
                   <div className="detailed-userInfo">
+                    {firstname} {lastname}
+                    <img src={pic} alt={username} className="user-thumbnail-detailed"></img>
+                    <ul>
+                      <li>{username}</li>
+                      <li>{phone}</li>
+                      <li>{city}</li>
+                    </ul>
                   </div>
                   )}
                 </div>
