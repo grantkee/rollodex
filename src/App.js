@@ -42,11 +42,10 @@ class User extends Component {
     console.log('is verified or not here')
   }
 
-  viewUserDetails = (event) => {
+  viewUserDetails = (id) => {
     //let viewDetails = this.state.showDetails
     console.log('view details toggle button here')
-    this.setState({showDetails: !this.showDetails})
-    debugger;
+      this.setState({showDetails: !this.showDetails})
   }
 
   render() { 
@@ -66,7 +65,7 @@ class User extends Component {
                   <div className="basic-userInfo">
                     {firstname} {lastname}
                     <img src={pic} alt={username} className="user-thumbnail-basic"></img>
-                    <button className="details-button" onClick={this.event.viewUserDetails}>Details</button>
+                    <button className="details-button" onClick={this.viewUserDetails(userInfo.id)}>Details</button>
                   </div>
                   ) : (
                   <div className="detailed-userInfo">
