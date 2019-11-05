@@ -16,17 +16,7 @@ class User extends Component {
     fetch ('https://randomuser.me/api?results=50')
     .then(response => response.json())
     .then(parsedJSON => parsedJSON.results.map(contact => (
-      {
-        id: `${contact.login.uuid}`,
-        username: `${contact.login.username}`,
-        firstname: `${contact.name.first}`,
-        lastname: `${contact.name.last}`,
-        pic: `${contact.picture.thumbnail}`,
-        phone: `${contact.cell}`,
-        city: `${contact.location.city}`,
-        lat: `${contact.location.coordinates.latitude}`,
-        long: `${contact.location.coordinates.longitude}`
-      }
+      {}
     )))
     .then(users => this.setState(
       {
