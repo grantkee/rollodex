@@ -5,7 +5,7 @@ import './App.css';
 class User extends Component {
   constructor(props) {
     super(props);
-    this.state = { isVerified: false, users: [], showDetails: false }
+    this.state = { isVerified: false, users: []}
   }
 
   componentDidMount() {
@@ -31,7 +31,8 @@ class User extends Component {
     .then(users => this.setState(
       {
         users,
-        isVerified: false
+        isVerified: false,
+        viewDetails: false
       }
     ))
     .catch(error => console.log("parsing failed", error))
@@ -41,10 +42,11 @@ class User extends Component {
     console.log('is verified or not here')
   }
 
-  viewUserDetails = () => {
+  viewUserDetails = (event) => {
     //let viewDetails = this.state.showDetails
     console.log('view details toggle button here')
-    this.setState(prevState => ({showDetails: !prevState.showDetails}))
+    this.setState({showDetails: !this.showDetails})
+    debugger;
   }
 
   render() { 
@@ -60,7 +62,7 @@ class User extends Component {
               const {id, username, firstname, lastname, pic, phone, city, lat, long} = userInfo;
               return (
                 <div key={userInfo.id} title={userInfo.username} className="user-profile">
-                  {!showDetails ? (
+                  {!this.state.showDetails ? (
                   <div className="basic-userInfo">
                     {firstname} {lastname}
                     <img src={pic} alt={username} className="user-thumbnail-basic"></img>
