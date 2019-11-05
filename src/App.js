@@ -66,7 +66,7 @@ class User extends Component {
                   <div className="basic-userInfo">
                     {firstname} {lastname}
                     <img src={pic} alt={username} className="user-thumbnail-basic"></img>
-                    <button className="details-button" onClick={this.viewUserDetails}>Details</button>
+                    <button className="details-button" onClick={this.event.viewUserDetails}>Details</button>
                   </div>
                   ) : (
                   <div className="detailed-userInfo">
