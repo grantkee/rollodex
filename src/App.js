@@ -14,10 +14,10 @@ class User extends Component {
 
   fetchData() {
     fetch ('https://randomuser.me/api?results=50')
-    .then(response => response.results.json())
+    .then(response => response.json())
     .then(contact => this.setState(
       {
-        users: contact,
+        users: contact.results,
         isVerified: false,
         viewDetails: false
       }
@@ -28,7 +28,7 @@ class User extends Component {
   sortContacts = () => {
     const newContact = this.state.users.map((contact) => {
       return (
-        <div className="basic-userInfo">
+        <div className="basic-userInfo" key={contact.login.uuid}>
           {contact.name.first} {contact.name.last}
           <img src={contact.picture.thumbnail} alt={contact.login.username} className="user-thumbnail-basic"></img>
           <button className="details-button" onClick={this.viewUserDetails}>Details</button>
