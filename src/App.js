@@ -42,7 +42,7 @@ class User extends Component {
     console.log('is verified or not here')
   }
 
-  viewUserDetails = (id) => {
+  viewUserDetails = () => {
     //let viewDetails = this.state.showDetails
     console.log('view details toggle button here')
       this.setState({showDetails: !this.showDetails})
