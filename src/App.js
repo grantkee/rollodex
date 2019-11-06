@@ -5,7 +5,8 @@ import './App.css';
 class User extends Component {
   constructor(props) {
     super(props);
-    this.state = { users: [], isVerified: false, viewDetails: false}
+    this.state = { users: [], isVerified: false, viewDetails: false};
+    this.viewUserDetails = this.viewUserDetails.bind(this)
   }
 
   componentDidMount() {
@@ -31,7 +32,7 @@ class User extends Component {
         <div className="basic-userInfo" key={contact.login.uuid}>
           {contact.name.first} {contact.name.last}
           <img src={contact.picture.thumbnail} alt={contact.login.username} className="user-thumbnail-basic"></img>
-          <button className="details-button" onClick={this.viewUserDetails}>Details</button>
+          <button className="details-button" id={contact.login.uuid} onClick={() => this.viewUserDetails(contact.login.uuid)}>Details</button>
         </div>
       )
     })
@@ -42,11 +43,13 @@ class User extends Component {
     console.log('is verified or not here')
   }
 
-  viewUserDetails = (id) => {
+  viewUserDetails = (id, event) => {
+    debugger;
     //let viewDetails = this.state.showDetails
     console.log('view details toggle button here')
-    
+    if(id === event.target.id){
       this.setState({showDetails: !this.showDetails})
+    }
   }
 
   render() { 
