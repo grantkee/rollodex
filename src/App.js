@@ -45,6 +45,7 @@ class User extends Component {
   viewUserDetails = (id) => {
     //let viewDetails = this.state.showDetails
     console.log('view details toggle button here')
+    
       this.setState({showDetails: !this.showDetails})
   }
 
