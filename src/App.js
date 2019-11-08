@@ -5,7 +5,7 @@ import './App.css';
 class User extends Component {
   constructor(props) {
     super(props);
-    this.state = { users: [], isVerified: false, viewDetails: false}
+    this.state = { users: [], viewDetails: {}}
   }
 
   componentDidMount() {
@@ -17,9 +17,7 @@ class User extends Component {
     .then(response => response.json())
     .then(contact => this.setState(
       {
-        users: contact.results,
-        isVerified: false,
-        viewDetails: false
+        users: contact.results
       }
     ))
     .catch(error => console.log("parsing failed", error))
@@ -29,9 +27,9 @@ class User extends Component {
     const newContact = this.state.users.map((contact) => {
       return (
         <div className="basic-userInfo" key={contact.login.uuid}>
-          {contact.name.first} {contact.name.last}
+          {contact.name.first} {this.state.viewDetails[contact.login.uuid] && (contact.name.last)}
           <img src={contact.picture.thumbnail} alt={contact.login.username} className="user-thumbnail-basic"></img>
-          <button className="details-button" onClick={this.viewUserDetails}>Details</button>
+          <button className="details-button" onClick={() => this.viewUserDetails(contact.login.uuid)}>{this.state.viewDetails[contact.login.uuid] ? "Hide" : "Show"}Details</button>
         </div>
       )
     })
@@ -42,58 +40,24 @@ class User extends Component {
     console.log('is verified or not here')
   }
 
-  viewUserDetails = () => {
-    //let viewDetails = this.state.showDetails
-    console.log('view details toggle button here')
-      this.setState({showDetails: !this.showDetails})
+  viewUserDetails = (id) => {
+    let showDetails = {...this.state.viewDetails}
+    showDetails[id] = !showDetails[id]
+      this.setState({viewDetails: showDetails})
   }
 
   render() { 
     return (
-      <div>
+      <>
         <header>
           <h1>Your Contacts</h1><br/>
           Verify Friends for Offline Use
         </header>
+        <div className="container">
            {this.sortContacts()}
-      </div>
+        </div>
+      </>
     )
-
-    // const {isVerified, users, showDetails} = this.state;
-    // return (
-    //   <div>
-    //     <header>
-    //       <h1>Your Contacts</h1><br></br>
-    //       Verify Friends for Offline Use
-    //       </header>
-    //       <div className="container">
-    //         {users.map(userInfo => {
-    //           const {id, username, firstname, lastname, pic, phone, city, lat, long} = userInfo;
-    //           return (
-    //             <div key={userInfo.id} title={userInfo.username} className="user-profile">
-    //               {!this.state.showDetails ? (
-    //               <div className="basic-userInfo">
-    //                 {firstname} {lastname}
-    //                 <img src={pic} alt={username} className="user-thumbnail-basic"></img>
-    //                 <button className="details-button" onClick={this.viewUserDetails(userInfo.id)}>Details</button>
-    //               </div>
-    //               ) : (
-    //               <div className="detailed-userInfo">
-    //                 {firstname} {lastname}
-    //                 <img src={pic} alt={username} className="user-thumbnail-detailed"></img>
-    //                 <ul>
-    //                   <li>{username}</li>
-    //                   <li>{phone}</li>
-    //                   <li>{city}</li>
-    //                 </ul>
-    //               </div>
-    //               )}
-    //             </div>
-    //           )
-    //         })}
-    //       </div>
-    //   </div>
-    //  );
   }
 }
  
