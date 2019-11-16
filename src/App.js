@@ -29,7 +29,7 @@ class User extends Component {
         <div className="basic-userInfo" key={contact.login.uuid}>
           {contact.name.first} {this.state.viewDetails[contact.login.uuid] && (contact.name.last)}
           <img src={contact.picture.thumbnail} alt={contact.login.username} className="user-thumbnail-basic"></img>
-          <button className="details-button" onClick={() => this.viewUserDetails(contact.login.uuid)}>{this.state.viewDetails[contact.login.uuid] ? "Hide" : "Show"}Details</button>
+          <button className="details-button" onClick={() => this.viewUserDetails(contact.login.uuid)}>{this.state.viewDetails[contact.login.uuid] ? "Hide" : "Show"} Details</button>
         </div>
       )
     })
